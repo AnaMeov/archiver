@@ -1,4 +1,5 @@
 Voicu Ana-Nicoleta 312CA
+
 Functie padleft
 Aceasta functie este folosita pentru padding-ul cu 0 al elementelor din header.
 Ea considera un sir de caractere si lungimea sa, si il aliniaza la dreapta,
