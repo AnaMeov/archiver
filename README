@@ -1,0 +1,93 @@
+Voicu Ana-Nicoleta 312CA
+Functie padleft
+Aceasta functie este folosita pentru padding-ul cu 0 al elementelor din header.
+Ea considera un sir de caractere si lungimea sa, si il aliniaza la dreapta,
+umplandu-l la stanga cu zero-uri. Pentru a se realiza aceasta, sirul se
+cloneaza, apoi este umplut cu zero-uri pana la capacitatea sa,
+si cu un '\0' la sfarsit. Dupa aceasta, in stanga '\0'-ului se decoreaza
+noul sir cu vechea clona.
+
+---
+Functie octaltodecimal
+Aceasta functie trece un numar din baza 8 in baza 10.
+
+---
+Functie get_chmod_val
+Asociaza fiecare permisiune cu cifra corespunzatoare.
+
+---
+Functie get_chmod_digit
+Insumeaza permisiunile cate 3 incepand de la pozitia data.
+
+---
+Functie get_header_files
+Citeste din files.txt si atribuie structurii header informatiile
+corespunzatoare, aplicand padding unde este cazul.
+
+Variabila contor tine cont de elementul care este citit, fiind cunoscuta
+ordinea acestora.
+
+Prima oara citim permisiunile si le prelucram cu ajutorul functiei
+get_chmod_digit, concatenandu-le in ordinea user, group si others, in
+sirul mode, care este apoi atribuit sirului din header, cu tot cu padding.
+
+Sarim peste linkuri
+
+Citim si atribuim corespunzator numele user-ului si cel al grupului
+
+Citim si atribuim dimensiunea fisierului in header, memorand-o in
+variabila multiplu.
+
+Concatenam data cu ora, obtinand apoi din ele nr. de secunde de la unix time,
+care este apoi transformat in octal si atribuit header-ului.
+
+Nu tinem cont de timezone
+
+Citim si atribuim in header numele fisierului.
+
+Returnam variabila multiplu pentru a putea cunoaste numarul de zero-uri 
+care trebuie adaugat la sfarsitul arhivei, si deci, marimea arhivei.
+
+---
+Functie get_header_usermap
+Cauta numele user-ului in usermap, si ia uid si gid-ul sau, adica elementele
+nr. 3 si 4 corespunzatoare liniei sale din header. Aceasta se realizeaza
+cu ajutorul functiei strtok pentru a delimita elementele prin ":" sau " ".
+
+---
+Functie create
+Gestioneaza toate actiunile necesare pentru crearea arhivei.
+
+Initial, citeste numele pe care trebuie sa-l ia arhiva, si
+numele directorulului al carui fisiere vor fi incluse in arhiva.
+
+Apoi, se decoreaza arhiva cu fisierul de arhivat, tinand cont ca
+marimea finala sa fie multiplu de 512, cu 512 zero-uri la final.
+
+Aceasta se realizeaza prin citirea header-urilor din fisierul files.txt,
+decorarea acestora cu elementele magice, prelucrate unde este cazul (chksum),
+iar, in functie de marimea fisierului care urmeaza sa fie arhivat, se ia cel
+mai mic multiplu al lui 512 mai mare de marimea fisierului, se imparte la 512,
+iar de atatea ori se pun 512 zero-uri in arhiva dupa header, pentru a pregati
+arhiva de copierea continului fisierului.
+
+---
+Functie list
+Citeste primul header, si se foloseste de informatiile din el pentru a
+afisa numele fisierelor din arhiva, si pentru a sari peste fisierul
+corespunzator header-ului. Aceasta se repeta pana la epuizarea arhivei.
+
+---
+Functie extract
+Citeste headere pana cand gaseste headerul corespunzator fisierului de
+dezarhivat. Daca header-ul corect este gasit, se foloseste de informatiile
+din acesta pentru a crea un nou fisier, si pentru a copia in acesta din
+arhiva, pana ii este epuizat continutul, numar dat de record.header.size.
+
+Daca header-ul corect nu este gasit, se foloseste primul multiplu al lui
+512 mai mare de record.header.size pentru a sari peste continutul fisierului,
+si pentru a trece la analiza urmatorului header.
+
+Functie main
+Asteapta input de la tastatura si executa comanda corespunzatoare,
+pana la primirea comenzii "exit", unde determina incheierea programului.
